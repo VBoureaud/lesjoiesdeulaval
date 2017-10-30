@@ -1,0 +1,240 @@
+body {
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.App {
+  text-align: center;
+}
+.glyphicon:before{
+    padding-right: 7px;
+}
+.contain {
+  box-sizing: border-box;
+  max-width:750px;
+  margin: auto;
+}
+.pagination {
+  height:50px;
+  padding-top:30px;
+  display: block;
+  margin: auto;
+}
+.containLeft {
+    text-align: left;
+    padding-left:0;
+    padding-right:0;
+}
+.gifBox{
+  padding: 0;
+  margin-bottom: 15px;
+  background: white;
+  margin-bottom:5px;
+  margin-top:25px;
+}
+.gifBox > h3 {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Open Sans, Arial, Sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #333333;
+  padding-top:15px;
+  padding-bottom:5px;
+}
+.imgIllustration{
+  background: #282527;
+  border-left: 1px solid #302d2e;
+  border-right: 1px solid #302d2e;
+}
+.imgIllustration > img {
+  max-width: 100%;
+}
+.btn-social {
+  margin-right:5px;
+}
+.btn-like {
+  float:right;
+  margin:0;
+  padding:0;
+}
+.btn-like > span {
+    color: white;
+    float:right;
+    background: #ff0005;
+    padding: 8.5px;
+    font-size: 15px;
+    border-radius: 40px;
+    border: 1px solid #fc425b;
+}
+.btn-like > span:hover {
+  background: #ff0005;
+}
+.footer {
+  margin-top:60px;
+  background-color: #f8f8f8;
+  border-top: 1px solid #e7e7e7;
+  padding-top:10px;
+  height:40px;
+  letter-spacing: 1px;
+  font-size:12px;
+  font-family: 'Open Sans';
+}
+.footer > a {
+  color:#274596;
+}
+.btnLeft {
+  float:left;
+}
+.btnRight {
+  float:right;
+}
+.btn > a {
+  text-decoration: none!important;
+  color:inherit!important;
+}
+.error {
+    background: #e61818;
+    color: white;
+    margin-bottom: 50px;
+    padding: 35px;
+    font-size: 25px;
+    letter-spacing: 4px;
+}
+.error_gifPage {
+  padding: 20px;
+}
+.success_gifPage {
+  background: #34c968;
+}
+a {
+  color:inherit;
+}
+a:hover {
+  text-decoration: none;
+}
+.navbarLink{
+  height: 52px;
+  position: relative;
+  top:-2px;
+  padding-top: 17px;
+  padding-right: 10px;
+  padding-left: 10px;
+  color:white;
+  text-transform: uppercase;
+  font-family: 'Open Sans';
+  -webkit-transition: all 1s; /* Safari */
+  transition: all 1s;
+}
+.navbarLink:before{
+  font-family: 'Glyphicons Halflings';
+  top:5px;
+}
+.navbarLink:hover, .navbarLink:focus, .navbarLink:visited {
+  color:white;
+  text-decoration: none;
+}
+.link_red {background: #ea5254;}
+.link_red:hover {background: #e43c3f;}
+.link_blue {background: #3c579d;}
+.link_blue:hover {background: #2c56c5;}
+.link_blue2 {background: #2ec5ff;}
+.link_blue2:hover {background: #12bdff;}
+.link_yellow {background: #ffa909;}
+.link_yellow:hover {background: #ffa600;}
+.linkNav {float:left;}
+.navbar-brand {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 10px;
+}
+.loader {
+  background-image: url(../Img/eclipse.svg);
+  width: 200px;
+  height: 200px;
+  background-repeat: no-repeat;
+  margin: auto;
+}
+.picture {
+  position: relative;
+}
+.date > span {display: block;}
+.date {
+  width: 50px;
+  height: 55px;
+  background: white;
+  text-align: center;
+  color: #333333;
+  letter-spacing: 1px;
+  position: absolute;
+  top: 25px;
+  left: -38px;
+}
+.date > span:first-child {
+  font-size:20px;
+  padding-top:2px;
+}
+.like {
+  float:right;
+}
+.like > p {
+  position: absolute;
+  right: 79px;
+  width: 90px;
+  bottom: 0px;
+  font-style: italic;
+  font-size: 13px;
+}
+.like > span {
+  background: white;
+  padding: 10px;
+  position: relative;
+  top: 7px;
+  right: 3px;
+}
+.addGif > h3 {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+a:focus, a:hover {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+.addGif > form{
+  padding:20px;
+}
+.author{
+  text-align: left;
+  font-style: italic;
+  font-size: 12px;
+}
+.author > p > strong {
+  font-style: normal;
+}
+.form-group {
+  text-align: left;
+}
+@media screen and (max-width: 770px) {
+  .navbar-brand {
+    text-align:center;
+  }
+  .linkNav {
+    text-align: left;
+  }
+  .date {
+    position:relative;
+    left:0px;
+  }
+}
+@media screen and (max-width: 300px) {
+  .navbarLink {
+    width: 100%;
+  }
+  .linkNav {
+    text-align: center;
+  }
+}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
