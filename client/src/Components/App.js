@@ -26,11 +26,6 @@ function NavbarInstance(props) {
   );
 }
 
-function Footer(props) {
-  return (
-    <div className="footer">Réalisation de <a href="https://twitter.com/VBoureaud">Valentin Boureaud</a></div>
-  );
-}
 
 function Adv(props) {
   return (
@@ -77,7 +72,6 @@ class App extends Component {
             <Route exact path="/random/:page_id" component={Pictures} />
           </Switch>
         </main>
-        <Footer />
       </div>
     );
   }

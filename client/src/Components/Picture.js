@@ -104,7 +104,7 @@ class Picture extends Component {
              <a className="btn btn-social btn-facebook" href={"https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=" + encodeURIComponent(config.clientUrl + "/picture/" + this.state.id)}>
               <span className="fa fa-facebook"></span> Partager
             </a>
-            <a className="btn btn-social btn-twitter" href={"https://twitter.com/intent/tweet?original_referer=" + encodeURIComponent(config.clientUrl + "/picture/" + this.state.id) + "&ref_src=twsrc%5Etfw&text=" + encodeURIComponent(this.state.title) + "&tw_p=tweetbutton&url=" + encodeURIComponent(config.clientUrl + "/picture/" + this.state.id)}>
+            <a className="btn btn-social btn-twitter" href={"https://twitter.com/intent/tweet?original_referer=" + encodeURIComponent(config.clientUrl + "/picture/" + this.state.id) + "&ref_src=twsrc%5Etfw&text="+ encodeURIComponent(this.state.title) + "%20%23lesjoiesdeUlaval&tw_p=tweetbutton&url=" + encodeURIComponent(config.clientUrl + "/picture/" + this.state.id)}>
               <span className="fa fa-twitter"></span> Partager
             </a>
             <div className="like">

@@ -41,6 +41,11 @@ class Pictures extends Component {
 
   componentWillMount()
   {
+    this.setState({
+      error: '',
+      pictures: '',
+      total: 0,
+    });
     this.getPictures(config.apiUrl + this.props.location.pathname);
     this.setState({
       pathname: this.props.location.pathname
@@ -48,7 +53,13 @@ class Pictures extends Component {
     window.scrollTo(0, 0);
   }
 
-  componentWillReceiveProps(newProps){
+  componentWillReceiveProps(newProps)
+  {
+    this.setState({
+      error: '',
+      pictures: '',
+      total: 0,
+    });
     this.getPictures(config.apiUrl + newProps.location.pathname);
     this.setState({
       pathname: newProps.location.pathname
@@ -95,7 +106,6 @@ class Pictures extends Component {
 
     return (
       <div>
-
         {loader}
         {pictures}
         {error}
