@@ -11,7 +11,7 @@ class Pictures extends Component {
     this.state = {};
   }
 
-  /* Duplication with Picture.js -> API call file must be create */
+  /* Duplication with Picture.js -> API call file should be create */
   getPictures(url){
     Request.get(url).end((err, res) => {
       if (err || !res.ok) {

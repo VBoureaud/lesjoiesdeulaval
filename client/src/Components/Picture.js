@@ -19,7 +19,7 @@ class Picture extends Component {
     this.handleLike = this.handleLike.bind(this);
   }
 
-  /* Duplication with Pictures.js -> API call file must be create */
+  /* Duplication with Pictures.js -> API call file should be create */
   getPictures(url){
     Request.get(url).end((err, res) => {
       if (err || !res.ok) {

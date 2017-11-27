@@ -5,6 +5,7 @@ import Pictures from '../Components/Pictures';
 import Picture from '../Components/Picture';
 import Add from '../Components/Add';
 
+/* Google Analytics */
 var ReactGA = require('react-ga');
 ReactGA.initialize('UA-108797290-1');
 
@@ -21,22 +22,9 @@ function NavbarInstance(props) {
         <Link className="link_blue navbarLink glyphicon glyphicon-heart" to="/best">Les meilleurs</Link>
         <Link className="link_yellow navbarLink glyphicon glyphicon-random" to="/random">Aleatoire</Link>
         <Link className="link_blue2 navbarLink glyphicon glyphicon-upload" to="/send">Envoie ton gif</Link>
+        <a className="link_blue navbarLink social_navbar" href="https://www.facebook.com/Les-joies-de-Ulaval-1570536933006817"><span className="fa fa-facebook"></span></a>
       </div>
     </Navbar>
-  );
-}
-
-
-function Adv(props) {
-  return (
-    <div className="Adv_block">
-      <ins className="adsbygoogle"
-           data-ad-client="ca-pub-4840741212598490"
-           data-ad-slot="7006417471"></ins>
-      <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
   );
 }
 
@@ -50,15 +38,11 @@ class App extends Component {
   constructor(props) {
     super();
   }
-  // This code is ran when the component mounts
-  componentDidMount() {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-  }
+
   render() {
     return (
       <div className="App">
         <NavbarInstance />
-        <Adv />
         <main>
           <Route path="/" component={logPageView} />
           <Switch>
@@ -69,7 +53,6 @@ class App extends Component {
             <Route exact path="/best" component={Pictures} />
             <Route exact path="/best/:page_id" component={Pictures} />
             <Route exact path="/random" component={Pictures} />
-            <Route exact path="/random/:page_id" component={Pictures} />
           </Switch>
         </main>
       </div>

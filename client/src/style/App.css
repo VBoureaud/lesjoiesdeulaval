@@ -17,10 +17,9 @@ body {
 }
 .pagination {
   height:50px;
-  margin: auto;
   padding-top:30px;
-  margin-bottom: 40px;
   display: block;
+  margin: auto;
 }
 .containLeft {
     text-align: left;
@@ -145,24 +144,11 @@ a:hover {
 .link_blue2:hover {background: #12bdff;}
 .link_yellow {background: #ffa909;}
 .link_yellow:hover {background: #ffa600;}
-.linkNav {float:left;position: relative;}
+.linkNav {float:left;}
 .navbar-brand {
   text-transform: uppercase;
   letter-spacing: 3px;
   font-size: 10px;
-  padding-right:5px;
-}
-.social_navbar {
-  position: relative;
-  top: -1px;
-  padding-bottom: 16px;
-}
-.loader {
-  background-image: url(../Img/eclipse.svg);
-  width: 200px;
-  height: 200px;
-  background-repeat: no-repeat;
-  margin: auto;
 }
 .picture {
   position: relative;
@@ -239,10 +225,6 @@ a:focus, a:hover {
 @media screen and (max-width: 300px) {
   .navbarLink {
     width: 100%;
-  }
-  .social_navbar{
-    display:block;
-    margin-bottom:5px;
   }
   .linkNav {
     text-align: center;
