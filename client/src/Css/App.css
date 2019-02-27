@@ -122,9 +122,10 @@ a:hover {
   padding:0;
 }
 .navbarLink{
-  padding-top: 17px;
-  padding-right: 10px;
-  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 17px 10px;
   color:white;
   text-transform: uppercase;
   font-family: 'Open Sans';
@@ -232,10 +233,12 @@ a:focus, a:hover {
   }
   .linkNav {
     text-align: left;
+    flex-wrap: wrap;
   }
   .date {
     position:relative;
     left:0px;
+    top: 25px;
   }
 }
 @media screen and (max-width: 300px) {
