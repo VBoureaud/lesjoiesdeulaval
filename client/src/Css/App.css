@@ -117,6 +117,8 @@ a:hover {
   text-decoration: none;
 }
 .navbarApp {
+  background: #e6e6e6;
+  color: #4e4e4e;
   padding:0;
 }
 .navbarLink{
@@ -152,7 +154,7 @@ a:hover {
 .navbar-brand {
   text-transform: uppercase;
   letter-spacing: 3px;
-  font-size: 10px;
+  font-size: 14px;
   padding-right:5px;
 }
 .social_navbar {
@@ -177,7 +179,6 @@ a:hover {
   color: #333333;
   letter-spacing: 1px;
   position: absolute;
-  top: 25px;
   left: -38px;
 }
 .date > span:first-child {
