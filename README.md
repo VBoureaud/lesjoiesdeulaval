@@ -2,6 +2,7 @@
 
 Express your feelings of life on the Laval university campus through humorous gif.
 This project is the result of a personal challenge on a weekend.
+[http://lesjoiesdeulaval.be](http://lesjoiesdeulaval.be)
 
 
 ## Architecture
