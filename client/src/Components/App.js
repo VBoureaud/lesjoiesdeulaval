@@ -11,7 +11,7 @@ ReactGA.initialize('UA-108797290-1');
 
 function NavbarInstance(props) {
   return (
-    <Navbar>
+    <Navbar className="navbarApp">
       <Navbar.Header>
         <Navbar.Brand>
           Les joies de ULaval

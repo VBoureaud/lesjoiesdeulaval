@@ -116,10 +116,10 @@ a {
 a:hover {
   text-decoration: none;
 }
+.navbarApp {
+  padding:0;
+}
 .navbarLink{
-  height: 52px;
-  position: relative;
-  top:-2px;
   padding-top: 17px;
   padding-right: 10px;
   padding-left: 10px;
@@ -145,7 +145,10 @@ a:hover {
 .link_blue2:hover {background: #12bdff;}
 .link_yellow {background: #ffa909;}
 .link_yellow:hover {background: #ffa600;}
-.linkNav {float:left;position: relative;}
+.linkNav { 
+  position: relative;
+  display: flex;
+}
 .navbar-brand {
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -153,8 +156,6 @@ a:hover {
   padding-right:5px;
 }
 .social_navbar {
-  position: relative;
-  top: -1px;
   padding-bottom: 16px;
 }
 .loader {
