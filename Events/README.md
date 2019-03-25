@@ -1,17 +1,17 @@
 # Les joies de ULaval - Events
 
-Scrap all events from the faculties's Laval university campus to never miss one.
+A Scraper of all events from the Laval university's faculties to never miss one.
 [http://evenements.lesjoiesdeulaval.be](http://evenements.lesjoiesdeulaval.be)
 
 ## Architecture
 
-Scrapper is developped with Python3.
-For every faculties, the url of it is open with Get from Requests.
-It can be with selenium if the content's page is loaded with ajax.
-BeautifulSoup is use in next to read data we need to build a json objects of all events.
-Then it's sorted by date and printed.
+Scraper is developped with Python3.
+For each faculty, the URLs are opened with Get from Requests.
+Selenium is used if the page's content is loaded with ajax.
+BeautifulSoup is then used to read the data needed to build a json objects for every events.
+It is then sorted by date and finally printed.
 
-Front Website is minimalist. Using React to read and display data.
+Front End Website is minimalist, React is used to read and display data.
 
 ## HOW TO USE
 
