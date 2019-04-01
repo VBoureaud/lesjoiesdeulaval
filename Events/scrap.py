@@ -415,6 +415,7 @@ def ftsrManagor(url):
 
 	return events
 
+#Events url moved! TODO: Update scraping
 def fssManagor(url):
 	months = {'janv': 1, 'fevr': 2, 'mars': 3, 'avr': 4, 'mai': 5, 'juin': 6, 'juil': 7, 'aout': 8, 'sept': 9, 'oct': 10, 'nov': 11, 'dec': 12}
 	year = datetime.now().year
@@ -427,7 +428,7 @@ def fssManagor(url):
 	for contain in containers:
 		try:
 			title = contain.find("h2", {"class": "title"}).text
-			href = "https://www.fss.ulaval.ca/evenements" + contain.find("a", {"class": "article-item"})['href']
+			href = "https://www.fss.ulaval.ca" + contain.find("a", {"class": "article-item"})['href']
 
 			date = contain.find("time", {"class": "date-item"}).text.replace('\n', ' ').strip()
 			day = date.split(' ')[0]
@@ -464,13 +465,12 @@ def fsiManagor(url):
 			info = contain.find('div', {"class": "evenement-details"}).text.strip()
 			heure = info.split('Heure:')[1].split('Lieu:')[0].strip()
 			lieu = info.split('Lieu:')[1].split('\n')[0].strip()
-			description = info.split('Lieu:')[1].split('\n')[2].strip()
 
 			event = {}
 			event["title"] = title
 			event["link"] = href
 			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			event["lieu"] = "Heure:" + heure + "\nLieu:" + lieu + "\n" + description
+			event["lieu"] = "Heure:" + heure + "\nLieu:" + lieu
 			events.append(event)
 
 		except AttributeError:
