@@ -16,6 +16,13 @@ import random
 import time
 import re
 
+# TODO 
+#  Facultés des sciences de l'éducation -> Trouble Accents
+##
+
+#####
+### REQUESTING
+#####
 def httpGet(url):
 	try:
 		with closing(get(url, stream=True)) as resp:
@@ -66,7 +73,9 @@ def launchChrome(url):
 	page_soup = BeautifulSoup(html, "html.parser")	
 	return page_soup
 
-### SORTING ###
+#####
+### SORTING
+#####
 format = '%Y-%m-%dT%H:%M:%S'
 def pushByDate(date, item, fac, arr):
 	if len(arr) == 0:
@@ -104,7 +113,7 @@ def pushByDate(date, item, fac, arr):
 	})
 	return arr
 
-def sortByDate(data):
+def sortByDateWFac(data):
 	yesterday = datetime.now() - timedelta(days=1)
 	dataSorted = []
 	for key in data:
@@ -113,8 +122,40 @@ def sortByDate(data):
 				dataSorted = pushByDate(datetime.strptime(item['date'], format), item, key, dataSorted)
 	return dataSorted
 
-### MANAGORS ###
-# TODO: ADD LIEU
+def sortByDate(data):
+	yesterday = datetime.now() - timedelta(days=1)
+	dataSorted = []
+	for item in data:
+		if (datetime.strptime(item['date'], format) > yesterday):
+			dataSorted = pushByDate(datetime.strptime(item['date'], format), item, item['faculte'], dataSorted)
+	return dataSorted
+
+####
+### UTILS
+####
+def eventBuilder(
+		title,
+		link,
+		date,
+		lieu=None,
+		heure=None,
+		faculte=None,
+	):
+	event = {}
+	event["title"] = title
+	event["link"] = link
+	event["date"] = date
+	if (lieu is not None):
+		event["lieu"] = lieu
+	if (heure is not None):
+		event["heure"] = heure
+	if (faculte is not None):
+		event["faculte"] = faculte
+	return event
+
+#####
+### MANAGORS
+#####
 def fdManagor(url):
 	HTMLcode = launchChrome(url)
 	
@@ -148,11 +189,11 @@ def fdManagor(url):
 					daysEvent.append(i)
 			
 			for day in daysEvent:
-				event = {}
-				event["title"] = title
-				event["link"] = href
-				event["date"] = datetime(year, int(monthNum), int(day)).isoformat()
-				events.append(event)
+				events.append(
+					eventBuilder(
+						title,
+						href,
+						datetime(year, int(monthNum), int(day)).isoformat()))
 
 		except AttributeError:
 			continue
@@ -176,12 +217,12 @@ def ffggManagor(url):
 			day = re.findall(r'[0-9]+', date)[0]
 			lieu = contain.find("p", {"class": "lieu"}).text.split('Lieu :')[1].strip()
 
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			event["lieu"] = lieu
-			events.append(event)
+			events.append(
+				eventBuilder(
+					title,
+					href,
+					datetime(year, int(months[month]), int(day)).isoformat(),
+					lieu))
 
 		except AttributeError:
 			continue
@@ -207,12 +248,12 @@ def flshManagor (url):
 			lieu = lieu.split('Lieu')[len(lieu.split('Lieu')) - 1].strip().replace(':', '').strip() if len(lieu.split('Lieu')) > 1 else ''
 			lieu = horaire + " - " + lieu if horaire else lieu
 
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			event["lieu"] = lieu
-			events.append(event)
+			events.append(
+				eventBuilder(
+					title,
+					href,
+					datetime(year, int(months[month]), int(day)).isoformat(),
+					lieu))
 
 		except AttributeError:
 			continue
@@ -238,12 +279,12 @@ def musManagor(url):
 				href = url.replace('calendrier.php', '') + href.replace("javascript:popUp('", "")[:-2]
 			lieu = contain.find('span', {"class": "calendrier_lieu"}).text
 
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			event["lieu"] = lieu
-			events.append(event)
+			events.append(
+				eventBuilder(
+					title,
+					href,
+					datetime(year, int(months[month]), int(day)).isoformat(),
+					lieu))
 
 		except AttributeError:
 			continue
@@ -268,20 +309,24 @@ def phaManagor(url):
 			date = contain.find("time", {"class", "actualite-date"})
 			day = date.find("span", {"class", "jour"}).text.strip()
 			month = unidecode.unidecode(date.find("span", {"class", "mois"}).text.lower())
-			
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			event["lieu"] = lieu
-			events.append(event)
+
+			events.append(
+				eventBuilder(
+					title,
+					href,
+					datetime(year, int(months[month]), int(day)).isoformat(),
+					lieu))
 
 		except AttributeError:
 			continue
 
 	return events
 
+# /!\ the site has a bad SSL implementation
+# Temporary disable
 def fpManagor(url):
+	return []
+
 	months = {'janvier': 1, 'fevrier': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6, 'juillet': 7, 'aout': 8, 'septembre': 9, 'octobre': 10, 'novembre': 11, 'decembre': 12}
 	year = datetime.now().year
 	events=[]
@@ -304,12 +349,12 @@ def fpManagor(url):
 			#lieu = contain.find('div', {"class": "contenu"}).findAll('p')[0].text
 			lieu = contain.find('div', {"class": "contenu"}).text
 
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			event["lieu"] = lieu
-			events.append(event)
+			events.append(
+				eventBuilder(
+					title,
+					href,
+					datetime(year, int(months[month]), int(day)).isoformat(),
+					lieu))
 
 		except AttributeError:
 			continue
@@ -338,13 +383,14 @@ def fsaManagor(url):
 				heure = contain.findAll('p')[1].text.replace('Heure', '')
 				lieu = contain.findAll('p')[2].text.replace('Lieu', '')
 
-				event = {}
-				event["title"] = title
-				event["link"] = href
-				event["date"] = datetime(int(year), int(months[month]), int(day)).isoformat()
-				event["heure"] = heure
-				event["lieu"] = lieu
-				events.append(event)
+				events.append(
+					eventBuilder(
+						title,
+						href,
+						datetime(int(year), int(months[month]), int(day)).isoformat(),
+						lieu,
+						heure))
+
 
 		except AttributeError:
 			continue
@@ -371,12 +417,12 @@ def fmedManagor(url):
 			href = contain.find('div', {"class": "carousel-evn-hover-bouton"}).find('a')['href']
 			lieu = contain.find('span', {"class": "carousel-text-location"}).text.strip()
 
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			event["lieu"] = lieu
-			events.append(event)
+			events.append(
+				eventBuilder(
+					title,
+					href,
+					datetime(year, int(months[month]), int(day)).isoformat(),
+					lieu))
 
 		except AttributeError:
 			continue
@@ -403,19 +449,18 @@ def ftsrManagor(url):
 				href = contain.find('h2').find('a')['href']
 				lieu = contain.find('div', {"class": "content"}).find('p').text.strip()
 
-				event = {}
-				event["title"] = title
-				event["link"] = href
-				event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-				event["lieu"] = lieu
-				events.append(event)
+				events.append(
+					eventBuilder(
+						title,
+						href,
+						datetime(year, int(months[month]), int(day)).isoformat(),
+						lieu))
 
 		except AttributeError:
 			continue
 
 	return events
 
-#Events url moved! TODO: Update scraping
 def fssManagor(url):
 	months = {'janv': 1, 'fevr': 2, 'mars': 3, 'avr': 4, 'mai': 5, 'juin': 6, 'juil': 7, 'aout': 8, 'sept': 9, 'oct': 10, 'nov': 11, 'dec': 12}
 	year = datetime.now().year
@@ -435,11 +480,11 @@ def fssManagor(url):
 			month = unidecode.unidecode(date.split(' ')[1])
 			month = re.findall(r'[A-Za-z]+', month)[0]
 
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			events.append(event)
+			events.append(
+					eventBuilder(
+						title,
+						href,
+						datetime(year, int(months[month]), int(day)).isoformat()))
 
 		except AttributeError:
 			continue
@@ -466,12 +511,14 @@ def fsiManagor(url):
 			heure = info.split('Heure:')[1].split('Lieu:')[0].strip()
 			lieu = info.split('Lieu:')[1].split('\n')[0].strip()
 
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			event["lieu"] = "Heure:" + heure + "\nLieu:" + lieu
-			events.append(event)
+			events.append(
+					eventBuilder(
+						title,
+						href,
+						datetime(year, int(months[month]), int(day)).isoformat(),
+						lieu,
+						heure))
+
 
 		except AttributeError:
 			continue
@@ -496,12 +543,12 @@ def fsgManagor(url):
 				href = "https://www.fsg.ulaval.ca" + containTitle.find('a')['href']
 				description = containTitle.find('p', {"class": "bodytext"}).text.strip()
 
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, month, int(day)).isoformat()
-			event["description"] = description
-			events.append(event)
+			events.append(
+					eventBuilder(
+						title,
+						href,
+						datetime(year, month, int(day)).isoformat(),
+						description))
 
 		except AttributeError:
 			continue
@@ -528,11 +575,11 @@ def fseManagor(url):
 
 			title = contain.find('div', {"class": "boiteg-acc-titre"}).find('a').text.strip()
 
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			events.append(event)
+			events.append(
+					eventBuilder(
+						title,
+						href,
+						datetime(year, int(months[month]), int(day)).isoformat()))
 
 		except AttributeError:
 			continue
@@ -555,11 +602,12 @@ def fsaaManagor(url):
 			title = contain.find('h3').text.strip()
 
 			href = "https://www.fsaa.ulaval.ca" + contain.find('h3').find('a')['href']
-			event = {}
-			event["title"] = title
-			event["link"] = href
-			event["date"] = datetime(year, int(months[month]), int(day)).isoformat()
-			events.append(event)
+
+			events.append(
+				eventBuilder(
+					title,
+					href,
+					datetime(year, int(months[month]), int(day)).isoformat()))
 
 		except AttributeError:
 			continue
@@ -573,7 +621,7 @@ def generalManagor():
 	allEvents['flsh'] = flshManagor ("https://www.flsh.ulaval.ca/evenements")
 	allEvents['mus'] = musManagor("https://www.mus.ulaval.ca/calendrier.php")
 	allEvents['pha'] = phaManagor("https://www.pha.ulaval.ca/evenements/")
-	allEvents['fp'] = fpManagor("http://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/")
+	allEvents['fp'] = fpManagor("https://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/")
 	allEvents['fsa'] = fsaManagor("https://www4.fsa.ulaval.ca/evenements/")
 	allEvents['fmed'] = fmedManagor("http://www.fmed.ulaval.ca/faculte-et-reseau/a-surveiller/calendrier-facultaire/")
 	allEvents['ftsr'] = ftsrManagor("https://www.ftsr.ulaval.ca/notre-faculte/toutes-les-actualites/toutes-les-actualites/")
@@ -588,5 +636,16 @@ def generalManagor():
 
 	return allEvents
 
-dataSorted = sortByDate(generalManagor())
+dataSorted = sortByDateWFac(generalManagor())
 print(json.dumps(dataSorted))
+
+# Add some news events in your database
+## with open('data.txt', 'r') as fd:
+##   data = fd.read()
+## data = json.loads(data)
+
+## data.append(eventBuilder('Cycle de conférences François-et-Rachel-Routhier', 'http://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/evenement-single-view/article/cycle-de-conference-francois-et-rachel-routhier-2019-1/', '2019-04-18T00:00:00', 'Jeudi 18 avril, 17 h à 19 h, (Pavillon La Laurentienne, Auditorium Jean-Paul Tardif, salle 1334)', None, 'fp'))
+## data.append(eventBuilder('Journée d\'étude sur le vieillissement', 'http://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/evenement-single-view/article/journee-detudes-sur-le-vieillissement/', '2019-04-29T00:00:00', 'Lundi 29 avril, 9 h à 15 h, (Pavillon Gene-H.-Kruger, salles 2320-2330)\r\nLa professeure Marie-Andrée Ricard prononcera une conférence intitulée « La beauté sans apprêt » à l\'occasion d\'une journée d\'étude sur le...', None, 'fp'))
+## data.append(eventBuilder('Marie-Anne Casselot prononcera une conférence dans le cadre de l\'Université féministe d\'été', 'http://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/evenement-single-view/article/marie-anne-casselot-prononcera-une-conference-dans-le-cadre-de-luniversite-feministe-dete-1/', '2019-05-21T00:00:00', 'Mardi 21 mai 13 h 30', None, 'fp'))
+
+## print(json.dumps(sortByDate(data)))
