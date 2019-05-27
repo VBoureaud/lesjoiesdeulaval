@@ -508,8 +508,8 @@ def fsiManagor(url):
 
 			href = "https://www.fsi.ulaval.ca/" + contain.findAll('div', {"class": "grid--item"})[0].find('a')['href']
 			info = contain.find('div', {"class": "evenement-details"}).text.strip()
-			heure = info.split('Heure:')[1].split('Lieu:')[0].strip()
-			lieu = info.split('Lieu:')[1].split('\n')[0].strip()
+			heure = info.split('Heure:')[1].split('Lieu:')[0].strip() if len(info.split('Heure:')) > 1 else ''
+			lieu = info.split('Lieu:')[1].split('\n')[0].strip() if len(info.split('Lieu:')) > 1 else ''
 
 			events.append(
 					eventBuilder(
@@ -524,7 +524,10 @@ def fsiManagor(url):
 			continue
 	return events
 
+# TODO REINTEGRATE
 def fsgManagor(url):
+	return []
+
 	months = {'janvier': 1, 'fevrier': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6, 'juillet': 7, 'aout': 8, 'septembre': 9, 'octobre': 10, 'novembre': 11, 'decembre': 12}
 	year = datetime.now().year
 	month = datetime.now().month
@@ -636,16 +639,20 @@ def generalManagor():
 
 	return allEvents
 
+# Normal use
 dataSorted = sortByDateWFac(generalManagor())
 print(json.dumps(dataSorted))
 
+# Exemple 
+#print(fpManagor("https://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/"))
+
 # Add some news events in your database
-## with open('data.txt', 'r') as fd:
-##   data = fd.read()
-## data = json.loads(data)
+# with open('tmp', 'r') as fd:
+#   data = fd.read()
+# data = json.loads(data)
 
-## data.append(eventBuilder('Cycle de conférences François-et-Rachel-Routhier', 'http://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/evenement-single-view/article/cycle-de-conference-francois-et-rachel-routhier-2019-1/', '2019-04-18T00:00:00', 'Jeudi 18 avril, 17 h à 19 h, (Pavillon La Laurentienne, Auditorium Jean-Paul Tardif, salle 1334)', None, 'fp'))
-## data.append(eventBuilder('Journée d\'étude sur le vieillissement', 'http://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/evenement-single-view/article/journee-detudes-sur-le-vieillissement/', '2019-04-29T00:00:00', 'Lundi 29 avril, 9 h à 15 h, (Pavillon Gene-H.-Kruger, salles 2320-2330)\r\nLa professeure Marie-Andrée Ricard prononcera une conférence intitulée « La beauté sans apprêt » à l\'occasion d\'une journée d\'étude sur le...', None, 'fp'))
-## data.append(eventBuilder('Marie-Anne Casselot prononcera une conférence dans le cadre de l\'Université féministe d\'été', 'http://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/evenement-single-view/article/marie-anne-casselot-prononcera-une-conference-dans-le-cadre-de-luniversite-feministe-dete-1/', '2019-05-21T00:00:00', 'Mardi 21 mai 13 h 30', None, 'fp'))
+# data.append(eventBuilder('Journée d\'étude sur le vieillissement', 'http://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/evenement-single-view/article/journee-detudes-sur-le-vieillissement/', '2019-04-29T00:00:00', 'Lundi 29 avril, 9 h à 15 h, (Pavillon Gene-H.-Kruger, salles 2320-2330)\r\nLa professeure Marie-Andrée Ricard prononcera une conférence intitulée « La beauté sans apprêt » à l\'occasion d\'une journée d\'étude sur le...', None, 'fp'))
+# data.append(eventBuilder('Réfléchir sur l\'eau (colloque étudiant)', 'https://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/evenement-single-view/article/reflechir-sur-leau-colloque-etudiant/', '2019-04-29T00:00:00', 'Lundi 29 avril,  11 h 15 à 17 h, (Pavillon Félix-Antoine-Savard, salle 413)', None, 'fp'))
+# data.append(eventBuilder('Marie-Anne Casselot prononcera une conférence dans le cadre de l\'Université féministe d\'été', 'http://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/evenement-single-view/article/marie-anne-casselot-prononcera-une-conference-dans-le-cadre-de-luniversite-feministe-dete-1/', '2019-05-21T00:00:00', 'Mardi 21 mai 13 h 30', None, 'fp'))
 
-## print(json.dumps(sortByDate(data)))
+# print(json.dumps(sortByDate(data)))
