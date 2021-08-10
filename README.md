@@ -1,4 +1,4 @@
-# Les joies de ULaval - Free Time Projects
+# Les joies de ULaval
 
 You can find in this repository two folders related to the Laval University campus (from Quebec City).
 
