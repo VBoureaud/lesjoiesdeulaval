@@ -639,9 +639,17 @@ def generalManagor():
 
 	return allEvents
 
+HTMLcode = get_datas('https://drive.google.com/drive/folders/1yo-2l4VCmNisIgb7kHyJcRjsTJQ3QI_T')
+
+regex = 'https://lh3.google.com/u/0/d/+'
+#regex=https://lh3.google.com/u/0/d/1_Ej-9UFRWVHPXJ0u2F1K20l6R0kjIsEn=w200-h190-p-k-nu-iv1
+find = re.findall(regex, HTMLcode)
+print(find)
+
+
 # Normal use
-dataSorted = sortByDateWFac(generalManagor())
-print(json.dumps(dataSorted))
+# dataSorted = sortByDateWFac(generalManagor())
+# print(json.dumps(dataSorted))
 
 # Exemple 
 #print(fpManagor("https://www.fp.ulaval.ca/notre-faculte/vie-facultaire/evenements/a-venir/tous-les-evenements/"))
